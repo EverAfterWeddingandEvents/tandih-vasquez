@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tandih – Vasquez Wedding · January 8, 2027</title>
+  <meta name="description" content="Join us as we begin our biggest adventure yet. Tandih – Vasquez Wedding, Friday, January 8, 2027.">
+  <meta name="theme-color" content="#efe7e0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="is-locked">
+
+  <!-- ============ Opening curtain ============ -->
+  <div class="curtain" id="curtain" role="dialog" aria-label="Wedding invitation">
+    <div class="curtain__panel curtain__panel--l" aria-hidden="true"></div>
+    <div class="curtain__panel curtain__panel--r" aria-hidden="true"></div>
+    <div class="curtain__center">
+      <p class="eyebrow">You are invited</p>
+
+      <div class="passport" id="passport">
+        <!-- inside right page: revealed when the cover opens -->
+        <div class="passport__page" aria-hidden="true">
+          <div class="passport__head"><span>Passport</span><span>Wedding Invitation</span></div>
+          <div class="passport__id">
+            <span class="passport__photo"><img class="js-couple" alt="" hidden><b>T<i>&amp;</i>V</b></span>
+            <dl>
+              <div><dt>Surnames</dt><dd>Tandih &amp; Vasquez</dd></div>
+              <div><dt>Destination</dt><dd>Forever</dd></div>
+              <div><dt>Date of wedding</dt><dd>08 Jan 2027</dd></div>
+            </dl>
+          </div>
+          <p class="passport__mrz">P&lt;WED&lt;TANDIH&lt;&lt;VASQUEZ&lt;&lt;&lt;&lt;<br>TV0108&lt;&lt;08JAN2027&lt;FRIDAY&lt;</p>
+        </div>
+
+        <div class="passport__cover">
+          <div class="passport__front">
+            <span class="passport__title">Passport</span>
+            <div class="passport__seal">
+              <div class="passport__window">
+                <img class="js-couple" alt="" hidden>
+                <span class="passport__reveal">T<i>&amp;</i>V<small>08 · 01 · 2027</small></span>
+                <canvas class="passport__foil" id="scratch" aria-hidden="true"></canvas>
+              </div>
+              <img class="passport__frame" src="images/frame.png" alt="" width="898" height="1122">
+            </div>
+            <span class="passport__sub">Wedding Invitation</span>
+            <span class="passport__names">Tandih – Vasquez</span>
+          </div>
+          <div class="passport__inside" aria-hidden="true">
+            <span class="passport__stamp">
+              <svg viewBox="0 0 24 24" width="26" height="26"><path fill="currentColor" d="M21.5 15.5v-2L13 8.2V3.500a1.500 1.500 0 0 0-3 0v4.700l-8.500 5.300v2l8.500-2.600V18l-2.200 1.600V21l3.700-1 3.700 1v-1.400L13 18v-5.100z"/></svg>
+              <b>Admit two hearts</b>
+            </span>
+            <p class="passport__script">Our biggest<br>adventure yet</p>
+            <p class="passport__small">The bearers request the pleasure of your company</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="curtain__hint" id="scratchHint">Scratch the gold seal to open</p>
+      <button class="curtain__skip" id="openInvite" type="button">or tap here to open</button>
+    </div>
+  </div>
+
+  <!-- Floating gold dust: fixed to the screen, so it drifts over every section -->
+  <canvas class="dust" id="dust" aria-hidden="true"></canvas>
+
+  <!-- ============ Navigation ============ -->
+  <header class="nav" id="nav">
+    <a class="nav__mono" href="#top" aria-label="Back to top">T <span>|</span> V</a>
+    <nav class="nav__links" aria-label="Sections">
+      <a href="#story">Our Story</a>
+      <a href="#day">The Day</a>
+      <a href="#palette">Palette</a>
+      <a class="nav__cta" href="#rsvp">RSVP</a>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ Hero ============ -->
+    <section class="hero" id="hero">
+
+      <div class="drape drape--l" data-parallax="0.12" aria-hidden="true"></div>
+      <div class="drape drape--r" data-parallax="0.12" aria-hidden="true"></div>
+
+      <svg class="valance" viewBox="0 0 1200 230" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="swagFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#e9d8c3"/>
+            <stop offset=".45" stop-color="#fbf4ea"/>
+            <stop offset="1" stop-color="#dcc6ac"/>
+          </linearGradient>
+          <symbol id="swag" viewBox="0 0 300 230" preserveAspectRatio="none">
+            <path d="M0 0H300V34Q150 250 0 34Z" fill="url(#swagFill)"/>
+            <g fill="none" stroke="#b79d80" stroke-opacity=".38" stroke-width="1.2">
+              <path d="M0 30Q150 218 300 30"/>
+              <path d="M0 24Q150 176 300 24"/>
+              <path d="M0 18Q150 132 300 18"/>
+              <path d="M0 12Q150 90 300 12"/>
+              <path d="M0 6Q150 50 300 6"/>
+            </g>
+            <g fill="none" stroke="#fffaf2" stroke-opacity=".7" stroke-width="2">
+              <path d="M0 27Q150 198 300 27"/>
+              <path d="M0 15Q150 112 300 15"/>
+            </g>
+          </symbol>
+        </defs>
+        <g class="valance__row">
+          <use href="#swag" x="0"   y="0" width="300" height="230"/>
+          <use href="#swag" x="300" y="0" width="300" height="230"/>
+          <use href="#swag" x="600" y="0" width="300" height="230"/>
+          <use href="#swag" x="900" y="0" width="300" height="230"/>
+        </g>
+      </svg>
+
+      <div class="hero__inner">
+        <div class="frame" data-parallax="-0.06">
+          <div class="frame__photo">
+            <!-- Photo comes from CONFIG.couplePhoto in js/main.js -->
+            <img class="js-couple" alt="The couple" hidden>
+            <span class="frame__mono" aria-hidden="true">T<i>&amp;</i>V</span>
+          </div>
+          <img class="frame__gold" src="images/frame.png" alt="" width="898" height="1122">
+        </div>
+
+        <p class="eyebrow hero__eyebrow" data-rise style="--d:.9s">Together with their families</p>
+        <h1 class="hero__title" aria-label="Tandih and Vasquez">
+          <span class="split" data-split>Tandih</span>
+          <span class="hero__amp" data-rise style="--d:1.35s">&amp;</span>
+          <span class="split" data-split data-split-delay="0.35">Vasquez</span>
+        </h1>
+        <p class="hero__sub" data-rise style="--d:1.9s">The Wedding</p>
+        <p class="hero__date" data-rise style="--d:2.1s"><span>January 08, 2027</span><i></i><span>Friday</span></p>
+      </div>
+
+      <a class="scrollcue" href="#countdown" aria-label="Scroll to continue"><span></span></a>
+    </section>
+
+    <!-- ============ Countdown ============ -->
+    <section class="countdown" id="countdown">
+      <p class="eyebrow reveal">Counting down to forever</p>
+      <div class="countdown__grid reveal" style="--d:.1s" role="timer" aria-live="off">
+        <div class="unit"><b id="cdDays">–</b><span>Days</span></div>
+        <div class="unit"><b id="cdHours">–</b><span>Hours</span></div>
+        <div class="unit"><b id="cdMins">–</b><span>Minutes</span></div>
+        <div class="unit"><b id="cdSecs">–</b><span>Seconds</span></div>
+      </div>
+      <p class="countdown__done" id="cdDone" hidden>Today is the day.</p>
+    </section>
+
+    <!-- ============ Our story ============ -->
+    <section class="story" id="story">
+      <div class="wrap">
+        <p class="script reveal">how it all began</p>
+        <h2 class="heading reveal" style="--d:.08s">About Us</h2>
+
+        <p class="story__lead reveal" style="--d:.16s">
+          We fell in love with the little things — long drives, sandy shores, unfamiliar places,
+          spontaneous adventures, and the comfort of finding home in each other.
+        </p>
+
+        <div class="flight" id="flight" aria-hidden="true">
+          <svg viewBox="0 0 1000 170" preserveAspectRatio="none">
+            <defs>
+              <mask id="flightMask" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="170">
+                <path id="flightReveal" d="M10 120C150 20 260 20 340 90s120 80 170 20-40-110-80-60 60 120 200 90S880 40 990 60" fill="none" stroke="#fff" stroke-width="14"/>
+              </mask>
+            </defs>
+            <path id="flightPath" d="M10 120C150 20 260 20 340 90s120 80 170 20-40-110-80-60 60 120 200 90S880 40 990 60" fill="none" stroke="#c6a15b" stroke-width="1.6" stroke-dasharray="2 9" stroke-linecap="round" mask="url(#flightMask)" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <span class="flight__plane" id="plane">
+            <svg viewBox="0 0 24 24" width="26" height="26"><path fill="#3d4429" d="M21.5 15.5v-2L13 8.2V3.5a1.5 1.5 0 0 0-3 0v4.7l-8.5 5.3v2l8.5-2.6V18l-2.2 1.6V21l3.7-1 3.7 1v-1.4L13 18v-5.1z"/></svg>
+          </span>
+        </div>
+
+        <div class="story__cols">
+          <p class="reveal">
+            Two souls, one lifetime, and probably too many travel itineraries. We are two people who
+            will never turn down a beach day, a spontaneous road trip, or an excuse to pack our bags
+            and go somewhere new. We love chasing sunsets, taking the scenic route, finding hidden
+            gems, and making memories in places we've never been before. Sometimes it's the
+            destination, sometimes it's the journey, but somehow, it's always better when we're together.
+          </p>
+          <p class="reveal" style="--d:.12s">
+            And, of course, no love story of ours would be complete without a little Harry Potter magic.
+            We'd happily trade a day in the ordinary world for a trip to Hogwarts, a stroll through
+            Hogsmeade, and probably a never-ending debate about which house we'd be sorted into.
+          </p>
+        </div>
+
+        <ul class="loves">
+          <li class="reveal">
+            <svg viewBox="0 0 48 48"><path d="M6 31h36M10 31l3-9a3 3 0 0 1 3-2h16a3 3 0 0 1 3 2l3 9M9 31v5h5v-3h20v3h5v-5"/><circle cx="15" cy="27" r="1.6"/><circle cx="33" cy="27" r="1.6"/></svg>
+            <span>Long drives</span>
+          </li>
+          <li class="reveal" style="--d:.08s">
+            <svg viewBox="0 0 48 48"><path d="M4 34c4-3 8-3 12 0s8 3 12 0 8-3 12 0 4 2 4 2M8 40c3-2 6-2 9 0s6 2 9 0 6-2 9 0M24 30V12M24 12c-5-4-10-3-13 1 5-1 9 0 13 3M24 12c5-4 10-3 13 1-5-1-9 0-13 3"/></svg>
+            <span>Sandy shores</span>
+          </li>
+          <li class="reveal" style="--d:.16s">
+            <svg viewBox="0 0 48 48"><path d="M4 34h40M12 34a12 12 0 0 1 24 0M24 12v5M9 19l3.5 3.5M39 19l-3.5 3.5M10 40h28"/></svg>
+            <span>Chasing sunsets</span>
+          </li>
+          <li class="reveal" style="--d:.24s">
+            <svg viewBox="0 0 48 48"><path d="M8 40L30 18M33 6l1.8 5.2L40 13l-5.2 1.8L33 20l-1.8-5.2L26 13l5.200-1.8zM14 10l1 3 3 1-3 1-1 3-1-3-3-1 3-1zM38 28l1 3 3 1-3 1-1 3-1-3-3-1 3-1z"/></svg>
+            <span>A little magic</span>
+          </li>
+        </ul>
+
+        <p class="story__close reveal">
+          But as much as we love adventures, beautiful destinations, and a little magic, our favorite
+          place has always been wherever we get to be together. And now, we're off on our biggest
+          adventure yet — a lifetime of choosing each other, one day, one trip, and one memory at a time.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ The day ============ -->
+    <section class="day" id="day">
+      <div class="wrap">
+        <p class="script reveal">your boarding pass to</p>
+        <h2 class="heading reveal" style="--d:.08s">The Day</h2>
+
+        <div class="pass reveal" style="--d:.16s" id="pass">
+          <div class="pass__main">
+            <div class="pass__head">
+              <span>Wedding Invitation</span>
+              <span>Boarding Pass</span>
+            </div>
+            <div class="pass__route">
+              <div><small>From</small><b>Yes</b></div>
+              <div class="pass__line" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M21.5 15.5v-2L13 8.2V3.500a1.500 1.500 0 0 0-3 0v4.700l-8.500 5.300v2l8.500-2.600V18l-2.200 1.600V21l3.700-1 3.700 1v-1.400L13 18v-5.100z" transform="rotate(90 12 12)"/></svg>
+              </div>
+              <div><small>To</small><b>Forever</b></div>
+            </div>
+            <dl class="pass__fields">
+              <div><dt>Passengers</dt><dd>Tandih &amp; Vasquez</dd></div>
+              <div><dt>Date</dt><dd>08 Jan 2027</dd></div>
+              <div><dt>Day</dt><dd>Friday</dd></div>
+              <div><dt>Venue</dt><dd data-config="venue">To be announced</dd></div>
+              <div><dt>Ceremony</dt><dd data-config="ceremonyTime">To be announced</dd></div>
+              <div><dt>Seat</dt><dd>Beside the ones you love</dd></div>
+            </dl>
+          </div>
+          <div class="pass__stub">
+            <span class="pass__mono">T<i>&amp;</i>V</span>
+            <span class="pass__flight">Flight TV 0108</span>
+            <span class="pass__bars" aria-hidden="true"></span>
+          </div>
+        </div>
+
+        <div class="moments">
+          <article class="arch reveal">
+            <div class="arch__stage" aria-hidden="true">
+              <span class="arch__drape arch__drape--l"></span>
+              <span class="arch__drape arch__drape--r"></span>
+              <span class="arch__medal">
+                <svg viewBox="0 0 64 64"><circle cx="25" cy="37" r="13"/><circle cx="39" cy="37" r="13"/><path d="M32 8l1.800 4.200L38 14l-4.200 1.800L32 20l-1.800-4.200L26 14l4.200-1.800z"/></svg>
+              </span>
+            </div>
+            <div class="arch__body">
+              <span class="arch__num">Part One</span>
+              <h3>The Ceremony</h3>
+              <span class="arch__rule" aria-hidden="true">✦</span>
+              <p>Soft drapery, a candlelit aisle, and the two of us saying the words we've been waiting to say.</p>
+              <dl class="arch__facts">
+                <div><dt>Time</dt><dd data-config="ceremonyTime">To be announced</dd></div>
+                <div><dt>Venue</dt><dd data-config="venue">To be announced</dd></div>
+              </dl>
+            </div>
+          </article>
+          <article class="arch reveal" style="--d:.18s">
+            <div class="arch__stage" aria-hidden="true">
+              <span class="arch__drape arch__drape--l"></span>
+              <span class="arch__drape arch__drape--r"></span>
+              <span class="arch__medal">
+                <svg viewBox="0 0 64 64"><g transform="rotate(-14 22 34)"><path d="M14 14h16l-1.500 15a6.500 6.500 0 0 1-13 0z"/><path d="M22 36v16M16 52h12"/></g><g transform="rotate(14 42 34)"><path d="M34 14h16l-1.500 15a6.500 6.500 0 0 1-13 0z"/><path d="M42 36v16M36 52h12"/></g><path d="M32 4v5M27 6l1.500 3.500M37 6l-1.500 3.500"/></svg>
+              </span>
+            </div>
+            <div class="arch__body">
+              <span class="arch__num">Part Two</span>
+              <h3>The Reception</h3>
+              <span class="arch__rule" aria-hidden="true">✦</span>
+              <p>Ivory swags overhead, calla lilies, warm light on every table — dinner, toasts, and dancing to follow.</p>
+              <dl class="arch__facts">
+                <div><dt>Time</dt><dd data-config="receptionTime">To be announced</dd></div>
+                <div><dt>Venue</dt><dd data-config="receptionVenue">To be announced</dd></div>
+              </dl>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Palette ============ -->
+    <section class="vision" id="palette">
+      <div class="wrap">
+        <p class="script reveal">the look &amp; feel</p>
+        <h2 class="heading reveal" style="--d:.08s">Palette</h2>
+
+        <ul class="palette">
+          <li class="reveal" style="--c:#f3dcb4;--d:0s"><span class="swatch swatch--shimmer"></span><b>Champagne</b></li>
+          <li class="reveal" style="--c:#978477;--d:.08s"><span class="swatch"></span><b>Taupe</b></li>
+          <li class="reveal" style="--c:#d9c6b0;--d:.16s"><span class="swatch"></span><b>Sand</b></li>
+          <li class="reveal" style="--c:#ebe0cf;--d:.24s"><span class="swatch"></span><b>Ivory</b></li>
+          <li class="reveal" style="--c:#f3e3d7;--d:.32s"><span class="swatch"></span><b>Blush</b></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ Candlelight ============ -->
+    <section class="glow" id="glow">
+      <div class="glow__stars" id="stars" aria-hidden="true"></div>
+      <blockquote class="glow__quote reveal">
+        Our favorite place has always been<br>
+        <em>wherever we get to be together.</em>
+      </blockquote>
+      <div class="candles" aria-hidden="true">
+        <span class="candle" style="--h:74px;--s:1.9s"></span>
+        <span class="candle" style="--h:118px;--s:2.4s"></span>
+        <span class="candle" style="--h:56px;--s:1.6s"></span>
+        <span class="candle" style="--h:142px;--s:2.1s"></span>
+        <span class="candle" style="--h:92px;--s:2.7s"></span>
+        <span class="candle" style="--h:128px;--s:1.8s"></span>
+        <span class="candle" style="--h:64px;--s:2.3s"></span>
+        <span class="candle" style="--h:104px;--s:2s"></span>
+        <span class="candle" style="--h:80px;--s:2.6s"></span>
+      </div>
+    </section>
+
+    <!-- ============ RSVP ============ -->
+    <section class="rsvp" id="rsvp">
+      <div class="wrap wrap--narrow">
+        <p class="script reveal">will you join us?</p>
+        <h2 class="heading reveal" style="--d:.08s">RSVP</h2>
+        <p class="rsvp__note reveal" style="--d:.16s">
+          It wouldn't be the same adventure without you. Kindly let us know if you can make it.
+        </p>
+
+        <form class="form reveal" style="--d:.24s" id="rsvpForm" novalidate>
+          <!-- Spam trap: hidden from guests; the Apps Script ignores any reply that fills it in -->
+          <label class="form__trap" aria-hidden="true">Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+          <label class="field">
+            <span>Your full name</span>
+            <input type="text" name="name" autocomplete="name" required>
+          </label>
+
+          <fieldset class="choice">
+            <legend>Will you be attending?</legend>
+            <label><input type="radio" name="attending" value="yes" required><span>Joyfully accepts</span></label>
+            <label><input type="radio" name="attending" value="no"><span>Regretfully declines</span></label>
+          </fieldset>
+
+          <label class="field">
+            <span>Number of guests</span>
+            <input type="number" name="guests" min="1" max="10" value="1" inputmode="numeric">
+          </label>
+
+          <label class="field">
+            <span>A note for the couple <small>(optional)</small></span>
+            <textarea name="message" rows="3"></textarea>
+          </label>
+
+          <button class="btn" type="submit"><span>Send RSVP</span></button>
+          <p class="form__status" id="rsvpStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ Footer ============ -->
+  <footer class="footer">
+    <!-- Rings photo: sample from the moodboard. Replace images/rings-sample.jpg to change it. -->
+    <div class="footer__photo" id="footerPhoto">
+      <img src="images/rings-sample.jpg" alt="Two gold wedding bands resting on pale marble" width="1786" height="1655" loading="lazy">
+    </div>
+    <p class="footer__names">Tandih – Vasquez<br>Wedding</p>
+    <p class="footer__date">January 08, 2027 | Friday</p>
+    <p class="footer__magic">✦ mischief managed ✦</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
