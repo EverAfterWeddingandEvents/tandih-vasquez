@@ -15,6 +15,47 @@ const CONFIG = {
   // While empty, the form validates but tells the guest RSVPs are not open yet.
   // For Google Sheets: deploy apps-script/Code.gs as a web app and paste its /exec URL here.
   rsvpEndpoint: "https://script.google.com/macros/s/AKfycbzpRMy20N4PSGYWauLWS8gsMTE1E8wqaLDAbzXLiHoiBOAdNTNYvMRMJ8AHwtxlBmSd/exec",
+
+  // ---- Map, Rooms and QR codes -------------------------------------------------
+  // Everything below is SAMPLE content so the couple can see the format.
+  // Replace the text with the real details, then set that block's `sample` to false
+  // to remove the "Sample only" label from the section.
+
+  map: {
+    sample: true,
+    place: "Venue Name",
+    address: "Street / Barangay, City, Province",
+    link: "",  // Google Maps → Share → Copy link. The button stays greyed out while empty.
+    embed: "", // Google Maps → Share → Embed a map → copy only the https://… address inside src="…". Empty shows the drawn placeholder.
+    notes: [
+      { label: "From the airport", text: "About 00 minutes by car from the nearest airport." },
+      { label: "Parking", text: "Free parking is available at the venue." },
+    ],
+  },
+
+  rooms: {
+    sample: true,
+    intro: "We've set aside a few rooms so you can stay close to the celebration.",
+    list: [
+      // guests is optional: use it if rooms are already assigned, or leave "" to hide that line.
+      { name: "Deluxe Room", details: "One queen bed, garden view, breakfast for two.", sleeps: "2 guests", rate: "₱0,000 / night", guests: "Family of the Bride" },
+      { name: "Family Suite", details: "Two queen beds, living area, breakfast for four.", sleeps: "4 guests", rate: "₱0,000 / night", guests: "Family of the Groom" },
+      { name: "Barkada Villa", details: "Three bedrooms with a shared lounge and veranda.", sleeps: "6–8 guests", rate: "₱0,000 / night", guests: "" },
+    ],
+    booking: "To book, message Contact Name at 09XX XXX XXXX and mention the Tandih – Vasquez wedding. Check-in 2:00 PM · Check-out 12:00 NN.",
+  },
+
+  qr: {
+    sample: true,
+    list: [
+      // image: save the QR picture in the images folder and put its path here, e.g. "images/qr-gift.png".
+      // While empty, a drawn stand-in marked SAMPLE is shown (it does not scan).
+      { title: "Gift of Love", image: "", caption: "Your presence is the best present. Should you wish to give, a gift toward our next adventure would mean the world.",
+        lines: [{ label: "GCash", text: "Account Name · 09XX XXX XXXX" }] },
+      { title: "Share Your Snaps", image: "", caption: "Scan to add your photos and videos to our wedding album.",
+        lines: [{ label: "Hashtag", text: "#TandihVasquezWedding" }] },
+    ],
+  },
 };
 /* ----------------------------------------------------------- */
 
@@ -27,6 +68,107 @@ $$("[data-config]").forEach((el) => {
   const value = CONFIG[el.dataset.config];
   if (value) el.textContent = value;
 });
+
+/* ---------- Map, Rooms, QR codes: built from CONFIG ---------- */
+(function details() {
+  function el(tag, cls, text) {
+    const node = document.createElement(tag);
+    if (cls) node.className = cls;
+    if (text) node.textContent = text;
+    return node;
+  }
+  // <dl> rows: [{ label, text }]
+  function rows(dl, list) {
+    (list || []).forEach((row) => {
+      const div = el("div");
+      div.append(el("dt", "", row.label), el("dd", "", row.text));
+      dl.appendChild(div);
+    });
+    dl.hidden = !dl.children.length;
+  }
+  $$("[data-sample]").forEach((tag) => { tag.hidden = !(CONFIG[tag.dataset.sample] || {}).sample; });
+
+  // Map
+  const map = CONFIG.map;
+  if (map.place) $("#mapPlace").textContent = map.place;
+  $("#mapAddress").textContent = map.address;
+  $("#mapAddress").hidden = !map.address;
+  rows($("#mapNotes"), map.notes);
+  if (map.link) $("#mapLink").href = map.link;
+  if (map.embed) {
+    const frame = el("iframe");
+    frame.src = map.embed;
+    frame.title = `Map to ${map.place}`;
+    frame.loading = "lazy";
+    frame.referrerPolicy = "no-referrer-when-downgrade";
+    frame.allowFullscreen = true;
+    $("#mapBox").replaceChildren(frame);
+  }
+
+  // Rooms
+  const rooms = CONFIG.rooms;
+  $("#roomsIntro").textContent = rooms.intro;
+  $("#roomsIntro").hidden = !rooms.intro;
+  $("#roomsBooking").textContent = rooms.booking;
+  $("#roomsBooking").hidden = !rooms.booking;
+  rooms.list.forEach((room, i) => {
+    const card = el("article", "room reveal");
+    card.style.setProperty("--d", `${(i % 3) * 0.12}s`);
+    card.insertAdjacentHTML("beforeend",
+      '<svg class="room__key" viewBox="0 0 48 48" aria-hidden="true"><circle cx="15" cy="24" r="8"/><path d="M23 24h19M36 24v7M42 24v5"/></svg>');
+    card.append(el("span", "arch__num", `Room ${String(i + 1).padStart(2, "0")}`), el("h3", "", room.name));
+    const rule = el("span", "arch__rule", "✦");
+    rule.setAttribute("aria-hidden", "true");
+    card.append(rule, el("p", "", room.details));
+    const facts = el("dl", "arch__facts");
+    rows(facts, [{ label: "Sleeps", text: room.sleeps }, { label: "Rate", text: room.rate }].filter((f) => f.text));
+    card.appendChild(facts);
+    if (room.guests) {
+      const guests = el("p", "room__guests");
+      guests.append(el("small", "", "Reserved for"), el("span", "", room.guests));
+      card.appendChild(guests);
+    }
+    $("#roomsList").appendChild(card);
+  });
+
+  // QR codes
+  // Stand-in drawing used until a real QR image is supplied. It is not a working code.
+  function sampleQr() {
+    const n = 25;
+    let seed = 20270108;
+    const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    const corner = (x, y) => (x < 8 && y < 8) || (x >= n - 8 && y < 8) || (x < 8 && y >= n - 8);
+    let cells = "";
+    for (let y = 0; y < n; y++) {
+      for (let x = 0; x < n; x++) {
+        const on = rnd() > 0.5;
+        if (on && !corner(x, y) && (y < 10 || y > 14)) cells += `<rect x="${x}" y="${y}" width="1" height="1"/>`;
+      }
+    }
+    const eye = (x, y) => `<path fill-rule="evenodd" d="M${x} ${y}h7v7h-7zM${x + 1} ${y + 1}v5h5v-5z"/><rect x="${x + 2}" y="${y + 2}" width="3" height="3"/>`;
+    return `<svg viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges" fill="#3d4429" role="img" aria-label="Sample QR code placeholder">${cells}${eye(0, 0)}${eye(n - 7, 0)}${eye(0, n - 7)}` +
+      `<text x="${n / 2 + 0.3}" y="13.6" text-anchor="middle" fill="#a4553f" font-family="Aboreto, Georgia, serif" font-size="3.4" letter-spacing=".6">SAMPLE</text></svg>`;
+  }
+  CONFIG.qr.list.forEach((item, i) => {
+    const card = el("article", "scan__card reveal");
+    card.style.setProperty("--d", `${(i % 3) * 0.12}s`);
+    const code = el("div", "scan__code");
+    if (item.image) {
+      const img = el("img");
+      img.src = item.image;
+      img.alt = `QR code: ${item.title}`;
+      img.loading = "lazy";
+      code.appendChild(img);
+    } else {
+      code.innerHTML = sampleQr();
+    }
+    card.append(code, el("h3", "", item.title), el("p", "", item.caption));
+    const lines = el("dl", "scan__lines");
+    rows(lines, item.lines);
+    card.appendChild(lines);
+    $("#qrList").appendChild(card);
+  });
+})();
 
 /* ---------- Opening curtain ---------- */
 const body = document.body;

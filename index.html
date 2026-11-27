@@ -91,6 +91,8 @@
     <nav class="nav__links" aria-label="Sections">
       <a href="#story">Our Story</a>
       <a href="#day">The Day</a>
+      <a href="#map">Map</a>
+      <a href="#rooms">Rooms</a>
       <a href="#palette">Palette</a>
       <a class="nav__cta" href="#rsvp">RSVP</a>
     </nav>
@@ -314,6 +316,65 @@
       </div>
     </section>
 
+    <!-- ============ Map ============ -->
+    <!-- Text, link and embedded map come from CONFIG.map in js/main.js -->
+    <section class="way" id="map">
+      <div class="wrap">
+        <p class="script reveal">finding your way</p>
+        <h2 class="heading reveal" style="--d:.08s">The Map</h2>
+        <p class="sample-tag reveal" style="--d:.12s" data-sample="map">Sample only · final details to follow</p>
+
+        <div class="chart reveal" style="--d:.16s">
+          <div class="chart__map" id="mapBox">
+            <!-- Placeholder drawing: replaced by the real Google Map once CONFIG.map.embed is filled in -->
+            <svg viewBox="0 0 600 440" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustrated placeholder map">
+              <rect width="600" height="440" fill="#f3e9d8"/>
+              <path d="M0 330C90 300 150 350 250 340s170-60 350-30V440H0z" fill="#e4d6bf"/>
+              <path d="M0 356C100 326 160 374 260 364s170-58 340-30" fill="none" stroke="#fffdf9" stroke-opacity=".7" stroke-width="2"/>
+              <g fill="none" stroke="#fffdf9" stroke-linecap="round">
+                <path d="M-10 120C120 100 200 170 320 150S520 60 610 90" stroke-width="12"/>
+                <path d="M150 -10C170 90 130 200 190 300" stroke-width="9"/>
+                <path d="M430 -10C410 80 470 170 440 300" stroke-width="9"/>
+                <path d="M-10 230C100 250 220 210 330 240s190 10 280-20" stroke-width="6"/>
+                <path d="M290 -10C300 60 280 110 300 150" stroke-width="5"/>
+              </g>
+              <path d="M70 300C120 240 150 200 200 190s100 40 150 20 40-60 50-70" fill="none" stroke="#c6a15b" stroke-width="2.4" stroke-dasharray="3 9" stroke-linecap="round"/>
+              <g transform="translate(58 304) rotate(40)"><path fill="#3d4429" transform="translate(-12 -12)" d="M21.5 15.5v-2L13 8.2V3.5a1.5 1.5 0 0 0-3 0v4.7l-8.5 5.3v2l8.5-2.6V18l-2.2 1.600V21l3.7-1 3.700 1v-1.400L13 18v-5.100z"/></g>
+              <circle class="chart__pulse" cx="402" cy="136" r="14" fill="none" stroke="#c6a15b" stroke-width="1.5"/>
+              <path d="M402 138c-9-13-15-21-15-29a15 15 0 0 1 30 0c0 8-6 16-15 29z" fill="#3d4429"/>
+              <circle cx="402" cy="109" r="5.500" fill="#f1dfaa"/>
+              <g transform="translate(528 372)" fill="none" stroke="#978477" stroke-width="1.2">
+                <circle r="26"/>
+                <path d="M0-20L5 0 0 20-5 0z" fill="#fffdf9"/>
+                <path d="M0-20L5 0H-5z" fill="#c6a15b" stroke="none"/>
+                <text y="-31" text-anchor="middle" fill="#978477" stroke="none" font-family="Aboreto, Georgia, serif" font-size="11">N</text>
+              </g>
+            </svg>
+          </div>
+          <div class="chart__info">
+            <span class="arch__num">Destination</span>
+            <h3 id="mapPlace">To be announced</h3>
+            <p class="chart__addr" id="mapAddress"></p>
+            <dl class="chart__notes" id="mapNotes"></dl>
+            <a class="btn" id="mapLink" target="_blank" rel="noopener"><span>Open in Google Maps</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Rooms ============ -->
+    <!-- Cards are built from CONFIG.rooms in js/main.js -->
+    <section class="stay" id="rooms">
+      <div class="wrap">
+        <p class="script reveal">rest your wings</p>
+        <h2 class="heading reveal" style="--d:.08s">Rooms</h2>
+        <p class="sample-tag reveal" style="--d:.12s" data-sample="rooms">Sample only · final details to follow</p>
+        <p class="stay__intro reveal" style="--d:.16s" id="roomsIntro"></p>
+        <div class="rooms" id="roomsList"></div>
+        <p class="stay__note reveal" id="roomsBooking"></p>
+      </div>
+    </section>
+
     <!-- ============ Palette ============ -->
     <section class="vision" id="palette">
       <div class="wrap">
@@ -386,6 +447,17 @@
           <button class="btn" type="submit"><span>Send RSVP</span></button>
           <p class="form__status" id="rsvpStatus" role="status" aria-live="polite"></p>
         </form>
+      </div>
+    </section>
+
+    <!-- ============ QR codes ============ -->
+    <!-- Cards are built from CONFIG.qr in js/main.js -->
+    <section class="scan" id="qr">
+      <div class="wrap">
+        <p class="script reveal">scan &amp; go</p>
+        <h2 class="heading reveal" style="--d:.08s">QR Codes</h2>
+        <p class="sample-tag reveal" style="--d:.12s" data-sample="qr">Sample only · final details to follow</p>
+        <div class="scans" id="qrList"></div>
       </div>
     </section>
   </main>
