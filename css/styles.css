@@ -706,10 +706,21 @@ body.is-open .scrollcue { opacity: .8; }
 }
 .room {
   position: relative; display: grid; align-content: start; justify-items: center;
-  padding: 36px 26px 30px; text-align: center;
+  padding: 18px 18px 30px; text-align: center;
   background: #fffdf9; border-radius: 12px;
   box-shadow: 0 26px 38px -22px rgba(120, 92, 62, .42);
 }
+.room__photo {
+  width: 100%; aspect-ratio: 3 / 2; margin-bottom: 22px; overflow: hidden;
+  border-radius: 5px; background: var(--ivory);
+}
+.room__photo img { width: 100%; height: 100%; object-fit: cover; }
+.room__photo--none { display: grid; place-content: center; justify-items: center; border: 1px dashed rgba(198, 161, 91, .7); }
+.room__photo--none .room__key { margin-bottom: 10px; background: #fffdf9; }
+.room__photo--none span { font-size: .62rem; letter-spacing: .26em; text-transform: uppercase; color: var(--taupe); }
+.room .arch__rule { margin-bottom: 0; }
+.room .arch__facts { margin-top: 16px; padding-inline: 8px; }
+.room .arch__facts--one { grid-template-columns: 1fr; }
 .room::before { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(198, 161, 91, .7); border-radius: 7px; pointer-events: none; }
 .room__key {
   width: 58px; height: 58px; padding: 14px; margin-bottom: 16px;
@@ -732,7 +743,7 @@ body.is-open .scrollcue { opacity: .8; }
    ========================================================== */
 .scan { padding: clamp(80px, 12vw, 140px) 0; background: var(--paper); }
 .scans {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 300px)); justify-content: center;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 360px)); justify-content: center;
   gap: clamp(18px, 4vw, 40px); margin-top: 46px;
 }
 .scan__card {
@@ -747,6 +758,10 @@ body.is-open .scrollcue { opacity: .8; }
   box-shadow: 0 0 0 6px #fffdf9, 0 0 0 7px rgba(198, 161, 91, .4);
 }
 .scan__code img, .scan__code svg { width: 100%; height: 100%; object-fit: contain; }
+.scan__code--image { width: min(300px, 100%); aspect-ratio: auto; padding: 6px; }
+.scan__code--image a { display: block; }
+.scan__code--image img { height: auto; border-radius: 4px; }
+.scan__hint { margin-bottom: 8px; font-size: .62rem; letter-spacing: .26em; text-transform: uppercase; color: var(--taupe); }
 .scan__card h3 { font-family: var(--display); font-weight: 400; font-size: 1.15rem; line-height: 1.25; letter-spacing: .12em; text-transform: uppercase; color: var(--olive); }
 .scan__card > p { font-style: italic; font-size: .95rem; line-height: 1.5; }
 .scan__lines { width: 100%; margin-top: 12px; padding-top: 14px; border-top: 1px dashed rgba(198, 161, 91, .6); display: grid; gap: 8px; }

@@ -17,7 +17,7 @@ const CONFIG = {
   rsvpEndpoint: "https://script.google.com/macros/s/AKfycbzpRMy20N4PSGYWauLWS8gsMTE1E8wqaLDAbzXLiHoiBOAdNTNYvMRMJ8AHwtxlBmSd/exec",
 
   // ---- Map, Rooms and QR codes -------------------------------------------------
-  // Everything below is SAMPLE content so the couple can see the format.
+  // Blocks marked `sample: true` hold SAMPLE content so the couple can see the format.
   // Replace the text with the real details, then set that block's `sample` to false
   // to remove the "Sample only" label from the section.
 
@@ -34,26 +34,34 @@ const CONFIG = {
   },
 
   rooms: {
-    sample: true,
-    intro: "We've set aside a few rooms so you can stay close to the celebration.",
+    sample: false,
+    intro: "Room options at the venue, should you wish to stay close to the celebration.",
     list: [
-      // guests is optional: use it if rooms are already assigned, or leave "" to hide that line.
-      { name: "Deluxe Room", details: "One queen bed, garden view, breakfast for two.", sleeps: "2 guests", rate: "₱0,000 / night", guests: "Family of the Bride" },
-      { name: "Family Suite", details: "Two queen beds, living area, breakfast for four.", sleeps: "4 guests", rate: "₱0,000 / night", guests: "Family of the Groom" },
-      { name: "Barkada Villa", details: "Three bedrooms with a shared lounge and veranda.", sleeps: "6–8 guests", rate: "₱0,000 / night", guests: "" },
+      // image: save the room photo in images/rooms and put its path here. "" shows "Photo to follow".
+      // details, sleeps, extra and guests are optional: leave "" to hide that line.
+      { name: "The Gardens", image: "images/rooms/the-gardens.jpg", details: "", sleeps: "", rate: "₱8,500", extra: "₱2,000", guests: "" },
+      { name: "The Veranda", image: "images/rooms/the-veranda.jpg", details: "", sleeps: "", rate: "₱13,000", extra: "", guests: "" },
+      { name: "The Courtyard", image: "images/rooms/the-courtyard.jpg", details: "", sleeps: "", rate: "₱15,000", extra: "₱1,500", guests: "" },
+      { name: "Villa Erlinda Prime", image: "images/rooms/villa-erlinda-prime.jpg", details: "", sleeps: "", rate: "₱15,500", extra: "₱2,500", guests: "" },
+      { name: "Villa Erlinda Executive", image: "", details: "", sleeps: "", rate: "₱17,000", extra: "₱2,500", guests: "" },
+      { name: "Casa Mercado Premier", image: "images/rooms/casa-mercado-premier.jpg", details: "", sleeps: "", rate: "₱16,000", extra: "", guests: "" },
+      { name: "Casa Mercado Executive", image: "images/rooms/casa-mercado-executive.jpg", details: "", sleeps: "", rate: "₱18,000", extra: "", guests: "" },
+      { name: "Casa Mercado Semi Presidential", image: "images/rooms/casa-mercado-semi-presidential.jpg", details: "", sleeps: "", rate: "₱20,000", extra: "", guests: "" },
+      { name: "Casa Mercado Presidential", image: "", details: "", sleeps: "", rate: "₱21,500", extra: "", guests: "" },
     ],
-    booking: "To book, message Contact Name at 09XX XXX XXXX and mention the Tandih – Vasquez wedding. Check-in 2:00 PM · Check-out 12:00 NN.",
+    booking: "", // e.g. "To book, message Contact Name at 09XX XXX XXXX." Hidden while empty.
   },
 
   qr: {
-    sample: true,
+    sample: false,
     list: [
       // image: save the QR picture in the images folder and put its path here, e.g. "images/qr-gift.png".
       // While empty, a drawn stand-in marked SAMPLE is shown (it does not scan).
-      { title: "Gift of Love", image: "", caption: "Your presence is the best present. Should you wish to give, a gift toward our next adventure would mean the world.",
-        lines: [{ label: "GCash", text: "Account Name · 09XX XXX XXXX" }] },
-      { title: "Share Your Snaps", image: "", caption: "Scan to add your photos and videos to our wedding album.",
-        lines: [{ label: "Hashtag", text: "#TandihVasquezWedding" }] },
+      { title: "Gift of Love", image: "images/qr-gift-pnb.png", caption: "Your presence is the best present. Should you wish to give, a gift toward our next adventure would mean the world.",
+        lines: [{ label: "PNB · InstaPay", text: "Tandih – Vasquez Wedding · Account ending 7048" }] },
+      // Sample card, add it back once the shared album QR is ready:
+      // { title: "Share Your Snaps", image: "", caption: "Scan to add your photos and videos to our wedding album.",
+      //   lines: [{ label: "Hashtag", text: "#TandihVasquezWedding" }] },
     ],
   },
 };
@@ -114,14 +122,27 @@ $$("[data-config]").forEach((el) => {
   rooms.list.forEach((room, i) => {
     const card = el("article", "room reveal");
     card.style.setProperty("--d", `${(i % 3) * 0.12}s`);
-    card.insertAdjacentHTML("beforeend",
-      '<svg class="room__key" viewBox="0 0 48 48" aria-hidden="true"><circle cx="15" cy="24" r="8"/><path d="M23 24h19M36 24v7M42 24v5"/></svg>');
-    card.append(el("span", "arch__num", `Room ${String(i + 1).padStart(2, "0")}`), el("h3", "", room.name));
+    const photo = el("div", "room__photo");
+    if (room.image) {
+      const img = el("img");
+      img.src = room.image;
+      img.alt = `${room.name} room`;
+      img.loading = "lazy";
+      photo.appendChild(img);
+    } else {
+      photo.classList.add("room__photo--none");
+      photo.insertAdjacentHTML("beforeend",
+        '<svg class="room__key" viewBox="0 0 48 48" aria-hidden="true"><circle cx="15" cy="24" r="8"/><path d="M23 24h19M36 24v7M42 24v5"/></svg>');
+      photo.appendChild(el("span", "", "Photo to follow"));
+    }
+    card.append(photo, el("span", "arch__num", `Room ${String(i + 1).padStart(2, "0")}`), el("h3", "", room.name));
     const rule = el("span", "arch__rule", "✦");
     rule.setAttribute("aria-hidden", "true");
-    card.append(rule, el("p", "", room.details));
+    card.append(rule);
+    if (room.details) card.append(el("p", "", room.details));
     const facts = el("dl", "arch__facts");
-    rows(facts, [{ label: "Sleeps", text: room.sleeps }, { label: "Rate", text: room.rate }].filter((f) => f.text));
+    rows(facts, [{ label: "Sleeps", text: room.sleeps }, { label: "Rate", text: room.rate }, { label: "Additional pax", text: room.extra }].filter((f) => f.text));
+    facts.classList.toggle("arch__facts--one", facts.children.length === 1);
     card.appendChild(facts);
     if (room.guests) {
       const guests = el("p", "room__guests");
@@ -158,11 +179,19 @@ $$("[data-config]").forEach((el) => {
       img.src = item.image;
       img.alt = `QR code: ${item.title}`;
       img.loading = "lazy";
-      code.appendChild(img);
+      const link = el("a");
+      link.href = item.image;
+      link.download = "";
+      link.setAttribute("aria-label", `Save the ${item.title} QR code`);
+      link.appendChild(img);
+      code.classList.add("scan__code--image");
+      code.appendChild(link);
     } else {
       code.innerHTML = sampleQr();
     }
-    card.append(code, el("h3", "", item.title), el("p", "", item.caption));
+    card.append(code);
+    if (item.image) card.append(el("small", "scan__hint", "Tap the QR to save it"));
+    card.append(el("h3", "", item.title), el("p", "", item.caption));
     const lines = el("dl", "scan__lines");
     rows(lines, item.lines);
     card.appendChild(lines);
